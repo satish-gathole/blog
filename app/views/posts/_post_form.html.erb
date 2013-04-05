@@ -1,6 +1,8 @@
-<%= form_for @post  do |f| %>
+
+<%= form_for @post, :remote=>true  do |f| %>
     <div class="field">
       <%= f.text_area :content, :placeholder => "Compose new post...", :value => @default_post_text %>
+      <%= hidden_field_tag "hello", hidden_value %>
     </div>
-    <%= f.submit "Post", :class => "btn btn-large btn-primary" %>  </br>
+    <%= f.submit "Post", :class => submit_class %>  </br>
 <% end %>

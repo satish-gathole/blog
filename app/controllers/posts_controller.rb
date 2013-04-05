@@ -4,12 +4,18 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(params[:post])
-    if @post.save
-      flash[:success] = "Post created!"
-    else
-      @feed_items = []
+    @abc = params[:hello]
+    respond_to do |format|
+      if @post.save
+        format.js {@abc}
+      #else
+      #  format.js { render :partial => 'error' }
+      end
+      @posts = current_user.posts.paginate(:page => params[:page])
+
     end
-    redirect_to current_user
+
+
   end
 
   def destroy

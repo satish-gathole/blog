@@ -20,7 +20,7 @@
     </section>
 
     <section>
-      <%= render '/posts/post_form' %>
+      <%= render :partial =>  '/posts/post_form', :locals => {:hidden_value => true, :submit_class => "btn-primary"} %>
     </section>
   </aside>
 
@@ -31,12 +31,10 @@
       </div>
 
       <% if @user.posts.any? %>
-          <h3>Posts (<%= @user.posts.count %>)</h3>
-          <ol class="posts">
-            <%= render @posts %>
-          </ol>
+          <div id="posts_list">
+            <%= render "/posts/post_list", :collection => @posts %>
+          </div>
 
-          <%= will_paginate @posts %>
       <% end %>
     </div>
 

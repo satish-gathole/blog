@@ -18,12 +18,10 @@
                 <li>
                   <%= image_tag("default_profile.png", :size=>"30x30" ) %>
                   <%= link_to u.username, u %>
-
                 </li>
             <% end %>
-
           </ul>
-          <%= will_paginate %>
+          <%= will_paginate @users %>
 
        <% else %>
            <p>Do not have any <%= @title %></p>

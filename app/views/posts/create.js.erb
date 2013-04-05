@@ -1,0 +1,7 @@
+if("<%=@abc%>" == "true"){
+    $('#posts_list').html("<%= escape_javascript(render('/posts/post_list')) %>")
+}
+else{
+    $('.posts_box').html("<%= escape_javascript(render('/home/current_user_all_posts')) %>")
+}
+$('#post_content').val("")

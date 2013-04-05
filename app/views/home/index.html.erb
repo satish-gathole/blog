@@ -1,33 +1,44 @@
 <div class="home">
   <h1>Twitter Test Project</h1>
-  <% if @current_user_posts.any? %>
+  <% if user_signed_in? %>
+    <% if @posts.any? %>
 
-      <div class="posts_box">
-          <h3>Posts (<%= @current_user_posts.count %>)</h3>
-          <ol class="current_user_posts">
-            <%#= render @current_user_posts %>
-            <% @current_user_posts.each do |post| %>
-                <li>
-                  <%= image_tag("default_profile.png", :size=>"60x60" ) %>
-
-                  <div class="post_details">
-                    <h3><%= post.user.username %></h3>
-                    <span class="content"><%= post.content %></span>
-                    <span class="timestamp">
-                        Created <%= time_ago_in_words(post.created_at) %> ago.
-                    </span>
-                    <% if current_user == post.user %>
-                        <%= link_to "delete", post, :method => :delete,
-                                    :confirm => "You sure?",
-                                    :title => post.content %>
-                    <% end %>
-                  </div>
-                </li>
-            <% end%>
-          </ol>
-
-          <%= will_paginate @current_user_posts %>
+      <div class="home_post_box">
+        <%= render :partial =>  '/posts/post_form', :locals => {:hidden_value => false, :submit_class => "post_sumbit" } %>
       </div>
 
+      <div class="posts_box">
+        <%= render "current_user_all_posts", :collection => @posts %>
+      </div>
+
+      <div class="relations">
+
+        <div class="following">
+          <h2> Following(<%= @following.count %>) </h2>
+          <ul class="users">
+            <% @following.each do |u| %>
+                <li>
+                  <%= image_tag("default_profile.png", :size=>"30x30" ) %>
+                  <%= link_to u.username, u %>
+                </li>
+            <% end %>
+          </ul>
+          <%= will_paginate @following, :param_name => 'followed_page' %>
+        </div>
+        <div class="followers">
+          <h2> Followers(<%= @followers.count %>) </h2>
+          <ul class="users">
+            <% @followers.each do |u| %>
+                <li>
+                  <%= image_tag("default_profile.png", :size=>"30x30" ) %>
+                  <%= link_to u.username, u %>
+                </li>
+            <% end %>
+          </ul>
+          <%= will_paginate @followers, :param_name => 'follower_page' %>
+        </div>
+      </div>
+
+    <% end %>
   <% end %>
 </div>

@@ -1,0 +1,7 @@
+<h3>Posts (<%= @posts.count %>)</h3>
+<ol class="posts" id="posts_list">
+  <%= render @posts %>
+
+</ol>
+
+<%= will_paginate @posts %>
