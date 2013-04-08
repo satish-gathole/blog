@@ -8,15 +8,20 @@ describe PostsController do
   describe "Post creation" do
     before { sign_in user }
     it "should not create a post without content" do
-        post :create, :post => {:content => ""}
-        assert_equal 302, @response.status
+        xhr :post, :create, :post => {:content => ""}
+        assert_equal 406, @response.status
         assert_equal 0, user.posts.count
       end
 
       it "create a post" do
-        post :create, :post => {:content => "testing"}
-        assert_equal 302, @response.status
-        assert_equal 1, user.posts.count
+        expect do
+          xhr :post, :create, :post => {:content => "testing"}
+        end.to change(Post, :count).by(1)
+
+
+        #post :create, :post => {:content => "testing"}
+        #assert_equal 302, @response.status
+        #assert_equal 1, user.posts.count
       end
   end
 

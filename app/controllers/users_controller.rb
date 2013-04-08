@@ -19,12 +19,12 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     
     if @user.save
-	flash[:notice] = "You Signed up successfully"
-	flash[:color]= "valid"
+        flash[:notice] = "You Signed up successfully"
+        flash[:color]= "valid"
         redirect_to :action => "new"
     else
-	flash[:notice] = "Form is invalid"
-	flash[:color]= "invalid"
+        flash[:notice] = "Form is invalid"
+        flash[:color]= "invalid"
         render :action => "new"
     end
   end

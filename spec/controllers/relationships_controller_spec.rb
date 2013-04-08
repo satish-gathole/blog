@@ -16,4 +16,19 @@ describe RelationshipsController do
       assert_include other_user.followers, user
     end
   end
+
+  describe "visit to other users profile and unfollow" do
+
+    it "should delete a relation between user and otheruser" do
+      post :create, :relationship => {:followed_id => other_user.id}
+      relationship = user.relationships.find_by_followed_id(other_user)
+
+      expect do
+        xhr :delete, :destroy, id: relationship.id
+      end.to change(Relationship, :count).by(-1)
+
+    end
+  end
+
+
 end
